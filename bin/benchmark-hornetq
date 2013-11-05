@@ -10,7 +10,7 @@
 true \
 ${SERVER_SETUP:=true} \
 ${SERVER_ADDRESS:=localhost} \
-${HORNETQ_VERSION:=2.3.0.Final} \
+${HORNETQ_VERSION:=2.4.0-SNAPSHOT} \
 ${SERVER_NAME:="hornetq-${HORNETQ_VERSION}"} \
 ${HORNETQ_DOWNLOAD:="http://downloads.jboss.org/hornetq/hornetq-${HORNETQ_VERSION}-bin.tar.gz"}
 
@@ -53,6 +53,7 @@ function server_start() {
       DESTINATION_CONFIGS="${DESTINATION_CONFIGS}
       <topic name=\"loadt-${i}\"><entry name=\"/topic/loadt-${i}\"/></topic>"
     done
+    echo $DESTINATION_CONFIGS
     perl -pi -e "s|^</configuration>|${DESTINATION_CONFIGS}</configuration>|" "${HORNETQ_HOME}/config/stand-alone/non-clustered/hornetq-jms.xml"
  
   fi
@@ -85,6 +86,7 @@ fi
 cd "${BASEDIR}/jms-benchmark-hornetq"
 export CLASSPATH=`${MVN} -P download dependency:build-classpath "-Dhornetq-version=${HORNETQ_VERSION}" | grep -v "\["`
 export CLASSPATH="${CLASSPATH}:target/classes"
+echo $CLASSPATH
 benchmark --provider org.fusesource.jmsbenchmark.HornetQScenario --display-errors --url tcp://${SERVER_ADDRESS}:5445 "${REPORTS_HOME}/${SERVER_NAME}.json"
 
 # Create a report.

@@ -29,7 +29,7 @@
   <name>${project.artifactId}</name>
   
   <properties>
-    <hornetq-version>2.3.0.Final</hornetq-version>
+    <hornetq-version>2.4.0-SNAPSHOT</hornetq-version>
 
     <url>tcp://localhost:5445</url>
     <benchmark-options/>
@@ -64,9 +64,9 @@
       <version>${hornetq-version}</version>
     </dependency> -->
     <dependency>
-      <groupId>org.jboss.netty</groupId>
-      <artifactId>netty</artifactId>
-      <version>3.2.4.Final</version>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.0.12.Final-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -76,6 +76,18 @@
     </dependency>
 
   </dependencies>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
   
   <build>
     <plugins>
@@ -85,7 +97,7 @@
         <version>1.2</version>
         <configuration>
           <mainClass>org.fusesource.jmsbenchmark.Benchmark</mainClass>
-          <commandlineArgs>--provider org.fusesource.jmsbenchmark.HornetQScenario --display-errors --url ${url} ${benchmark-options} ${basedir}/../reports/${box}/${server}.json</commandlineArgs>
+          <commandlineArgs>-Xmx2048M --provider org.fusesource.jmsbenchmark.HornetQScenario --display-errors --url ${url} ${benchmark-options} ${basedir}/../reports/${box}/${server}.json</commandlineArgs>
         </configuration>
       </plugin>
     </plugins>

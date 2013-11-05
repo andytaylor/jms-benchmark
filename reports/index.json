@@ -1,4 +1,4 @@
 {
-  "platforms":["perf80_rhel64"],
-  "products":["jboss-a-mq-6.0.0.redhat-024-openwire", "qpid-cpp-server-0.18-14"]
+  "platforms":["localhost.localdomain"],
+  "products":["hornetq-2.3.0.Final", "hornetq-2.4.0-SNAPSHOT"]
 }
